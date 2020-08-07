@@ -2,24 +2,16 @@ import {
   HttpResponse,
   HttpRequest,
   Controller,
-  EmailValidator,
   AddAccount,
   Validation
 } from './signup-protocols'
-import { InvalidParamError } from '../../errors'
 import { badRequest, serverError, ok } from '../../helpers/http-helper'
 
 export class SignUpController implements Controller {
-  private readonly emailValidator: EmailValidator
   private readonly addAccount: AddAccount
   private readonly validation: Validation
 
-  constructor(
-    emailValidator: EmailValidator,
-    addAcount: AddAccount,
-    validation: Validation
-  ) {
-    this.emailValidator = emailValidator
+  constructor(addAcount: AddAccount, validation: Validation) {
     this.addAccount = addAcount
     this.validation = validation
   }
@@ -32,11 +24,6 @@ export class SignUpController implements Controller {
       }
 
       const { name, email, password } = httpRequest.body
-
-      const isValid = this.emailValidator.isValid(email)
-      if (!isValid) {
-        return badRequest(new InvalidParamError('email'))
-      }
 
       const account = await this.addAccount.add({
         name,
