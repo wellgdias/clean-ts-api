@@ -2,4 +2,9 @@ node_modules
 dist
 coverage
 globalConfig.json
+<<<<<<< HEAD
 data
+=======
+data
+.vscode
+>>>>>>> a9af0f27bc1ddbd6f9772549ad0578f4d869b6f1
